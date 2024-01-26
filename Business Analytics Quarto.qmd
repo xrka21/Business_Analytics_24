@@ -1,0 +1,74 @@
+---
+title: "Business Analytics Q"
+author: "Arka Chowdhury"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+```{r}
+#| echo: false
+library(dplyr)
+library(tidyverse)
+library(openintro)
+data_diwali <- read.csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-11-14/diwali_sales_data.csv")
+```
+
+#Q1
+
+```{r}
+data_diwali %>%
+  group_by(Zone) %>%
+  summarise(
+    mean_ord = mean(Orders)
+  ) %>% # data wrangling
+  ggplot()+geom_col(aes(Zone, mean_ord))
+```
+
+#Q2
+
+```{r}
+data_diwali %>%
+  group_by(Gender="M") %>%
+  group_by(Age.Group) %>%
+  summarise(
+    mean_amt = mean(Amount)
+  ) %>% # data wrangling
+  ggplot()+geom_col(aes(Age.Group,mean_amt))
+```
+
+#Q3
+
+```{r}
+ggplot(data=data_diwali)+geom_bar(aes(Orders,fill=Gender))
+```
+
+```{r}
+data_diwali %>%
+  group_by(Occupation="Govt") %>%
+  group_by(Zone) %>%
+  summarise(
+    mean_amt2 = mean(Amount)
+  ) %>% # data wrangling
+  ggplot()+geom_col(aes(Zone,mean_amt2))
+```
